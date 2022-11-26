@@ -1,7 +1,7 @@
 async function POST(name, pass) {//зайшов користувач
     Fetch(method = 'POST', { "name": name, "pass": pass })
         .then(response => response.json())
-        .then(data => { if (data.listTasks != undefined || data.calendar!=undefined) { fillingData(data); textareaInit(); } })
+        .then(data => { if (data.listTasks != undefined || data.calendar != undefined) { fillingData(data); textareaInit(); } })
         .catch((error) => { console.log('Error:', error); });
 }
 async function PUT() {//якісь зміни
@@ -10,7 +10,7 @@ async function PUT() {//якісь зміни
 }
 async function DELETE(number, value) {//видалені дані
     console.log(value);
-    Fetch(method = 'DELETE', { "name": json.name, "pass": json.pass,"number": number, "value": value })
+    Fetch(method = 'DELETE', { "name": json.name, "pass": json.pass, "number": number, "value": value })
         .then(response => console.log(response.ok))
         .catch((error) => { console.error('Error:', error); });
 }
@@ -56,7 +56,7 @@ function saveDataToJson() {
         if (e.value != "") { json.listTasks.push(e.value); }
     });
     document.querySelector(".numbers").querySelectorAll('textarea').forEach((e) => {
-        if (e.value != "") {          
+        if (e.value != "") {
             let dayNumber = e.parentNode.querySelector('.numeric').textContent
             if (!json.calendar[dayNumber]) { json.calendar[dayNumber] = []; }
             json.calendar[dayNumber].push(e.value);
@@ -86,7 +86,9 @@ function newTextarea(text) {
 }
 generateNumbers();
 function generateNumbers() {
-    for (let i = 0; i < 30; i++) { document.querySelector("#listTasks").innerHTML += newTextarea(); }
+    for (let i = 0; i < 30; i++) {
+        document.querySelector("#listTasks").innerHTML += newTextarea();
+    }
     for (let i = 0, a = 1; i < 31 + a; i++) {
         if (a < i + 1) {
             document.querySelector(".numbers").innerHTML +=
@@ -112,8 +114,27 @@ for (const dayBloc of document.querySelectorAll('.dayBloc')) {
 }
 /////////////////////////////////////drag///////////////////////////////////////////////
 textareaInit();
+window.onresize = (e) => {
+    console.log("onresize");
+    for (const it of document.querySelectorAll('textarea')) { 
+        it.style.height = "fit-content;"
+       
+        console.dir(it);
+        it.style.height = (it.scrollHeight) + "px";
+       // it.style.height = (it.firstCh1ild.scrollHeight) + "px";
+    }
+}
+
 function textareaInit() {
     for (const it of document.querySelectorAll('textarea')) {
+        it.style.height = "5px";
+        it.style.height = (it.scrollHeight) + "px";
+        it.oninput = () => {
+            it.style.height = (it.scrollHeight) + "px";
+            it.value = it.value[0].toUpperCase() + it.value.slice(1, it.value.length)
+            console.log(it.value);
+        }
+
         it.addEventListener('dragstart', (event) => { setTimeout(() => event.target.classList.add('hide'), 0); })
         it.addEventListener('dragend', (event) => {
             if (position) { position.append(event.target); }

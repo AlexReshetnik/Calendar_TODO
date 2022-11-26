@@ -8,6 +8,8 @@ body {
   display: flex;
 }
 body * {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
   box-sizing: border-box;
 }
 body #fonForLoginBloc {
@@ -120,7 +122,7 @@ body .calendar .numbers .dayBloc {
   position: relative;
   min-height: 20px;
   opacity: 0.99;
-  padding-top: 15px;
+  padding-top: 17px;
   min-height: 30px;
   margin: 5px;
   text-align: center;
@@ -161,17 +163,24 @@ body .calendar .numbers .dayBloc::-webkit-scrollbar-thumb {
 textarea {
   z-index: 5;
   width: 90%;
-  background-color: rgba(0, 0, 0, 0.171);
+  background-color: rgba(218, 218, 218, 0.388);
   color: rgb(0, 0, 0);
-  font-size: 14px;
+  font-size: 13px;
   max-height: 200px;
   max-width: 95%;
   min-height: 20px;
   min-width: 50px;
   border-radius: 10px;
-  padding-left: 5px;
-  padding-right: 3px;
+  padding: 5px 2px 5px 3px;
   overflow-x: auto;
+  resize: none;
+  overflow: hidden;
+  transition: 0.2s;
+}
+textarea:focus-visible {
+  transform: scale(1.06);
+  border: 1px solid rgba(0, 0, 0, 0.687);
+  outline: none;
 }
 textarea::-webkit-scrollbar {
   width: 5px;
